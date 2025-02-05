@@ -92,4 +92,27 @@ class DataProvider extends ChangeNotifier {
     _saveData();
     notifyListeners();
   }
+
+  // Eliminar Competencia
+  void deleteCompetencia(int index) {
+    String competenciaNombre = _competencias[index].nombre;
+    _competencias.removeAt(index);
+    _partidos.removeWhere((partido) => partido.competencia == competenciaNombre);
+    _saveData();
+    notifyListeners();
+  }
+
+  // Eliminar Partido
+  void deletePartido(int index) {
+    _partidos.removeAt(index);
+    _saveData();
+    notifyListeners();
+  }
+
+  // Eliminar Equipo
+  void deleteEquipo(int index) {
+    _equipos.removeAt(index);
+    _saveData();
+    notifyListeners();
+  }
 }

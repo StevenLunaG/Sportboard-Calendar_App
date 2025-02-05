@@ -20,6 +20,10 @@ class PartidosTab extends StatelessWidget {
                 subtitle: Text(
                     "Competencia: ${partido.competencia}\nFecha: ${_formatDate(partido.fecha)} - Hora: ${partido.hora.format(context)}"),
                 onTap: () => _editarPartido(context, dataProvider, partido),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () => dataProvider.deletePartido(index),
+                ),
               );
             },
           ),

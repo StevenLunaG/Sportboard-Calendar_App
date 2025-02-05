@@ -18,6 +18,10 @@ class EquiposTab extends StatelessWidget {
               return ListTile(
                 title: Text(equipo.nombre),
                 onTap: () => _editarEquipo(context, dataProvider, equipo),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () => dataProvider.deleteEquipo(index),
+                ),
               );
             },
           ),
