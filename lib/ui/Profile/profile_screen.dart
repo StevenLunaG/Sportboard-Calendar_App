@@ -6,6 +6,15 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Perfil de Usuario'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.edit),
+            tooltip: 'Editar Perfil',
+            onPressed: () {
+              // Acción al presionar el botón de editar perfil
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -21,13 +30,13 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Center(
               child: Text(
-                'Nombre de Usuario',
+                'Hollow User',
               ),
             ),
             const SizedBox(height: 8),
             Center(
               child: Text(
-                'email@ejemplo.com',
+                'hollowuser@unl.edu.ec',
               ),
             ),
             const SizedBox(height: 32),

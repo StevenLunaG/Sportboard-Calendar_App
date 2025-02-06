@@ -18,7 +18,7 @@ class PartidosTab extends StatelessWidget {
               return ListTile(
                 title: Text("${partido.equipoLocal} vs ${partido.equipoVisitante}"),
                 subtitle: Text(
-                    "Competencia: ${partido.competencia}\nFecha: ${_formatDate(partido.fecha)} - Hora: ${partido.hora.format(context)}"),
+                    "Competencia: ${partido.competencia}\nFecha: ${_formatDate(partido.fecha)} - Hora: ${partido.hora.format(context)}\nEstado: ${partido.estado}\nMarcador: ${partido.marcadorLocal} - ${partido.marcadorVisitante}"),
                 onTap: () => _editarPartido(context, dataProvider, partido),
                 trailing: IconButton(
                   icon: Icon(Icons.delete),
@@ -161,6 +161,9 @@ class PartidosTab extends StatelessWidget {
                         equipoVisitante: equipoVisitante!,
                         fecha: fecha!,
                         hora: hora!,
+                        estado: Estado.PENDIENTE,
+                        marcadorLocal: 0,
+                        marcadorVisitante: 0,
                       ));
                       Navigator.pop(context);
                     }
@@ -308,6 +311,9 @@ class PartidosTab extends StatelessWidget {
                           equipoVisitante: equipoVisitante!,
                           fecha: fecha!,
                           hora: hora!,
+                          estado: partido.estado,
+                          marcadorLocal: partido.marcadorLocal,
+                          marcadorVisitante: partido.marcadorVisitante,
                         ),
                       );
                       Navigator.pop(context);

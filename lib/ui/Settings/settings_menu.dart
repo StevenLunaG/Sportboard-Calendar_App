@@ -28,14 +28,14 @@ class SettingsMenu extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.notifications),
-            title: Text('Notification Settings'),
+            title: Text('Notificaciones'),
             onTap: () {
               // Handle tap
             },
           ),
           ListTile(
             leading: Icon(Icons.help),
-            title: Text('Help & Support'),
+            title: Text('Acerca de'),
             onTap: () {
               // Handle tap
             },

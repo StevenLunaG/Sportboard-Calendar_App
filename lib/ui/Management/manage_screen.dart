@@ -27,7 +27,13 @@ class _ManagementScreenState extends State<ManagementScreen> with SingleTickerPr
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 3, // Eliminar el espacio del título
+        title: Text('Gestion'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         bottom: TabBar(
           controller: _tabController,
           tabs: [

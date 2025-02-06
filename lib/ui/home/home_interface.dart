@@ -7,6 +7,7 @@ import 'package:first/ui/Settings/settings_menu.dart';
 import 'package:first/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../Arbitro/arbitro_screen.dart';
 import '../Management/manage_screen.dart';
 
 class HomeInterfaceScreen extends StatelessWidget {
@@ -32,7 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
   static final List<Widget> _pages = <Widget>[
     MainHomeScreen(),
     SearcherScreen(),
-    ManagementScreen(),
+    ArbitroScreen(),
+    //ManagementScreen(),
     CalendarScreen(),
     SettingsMenu(),
   ];
@@ -199,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.manage_search),
-            label: 'Gestion',
+            label: 'Arbitraje',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.event),

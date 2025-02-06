@@ -3,6 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
 import '../../models/partido.dart';
 import '../../providers/calendar_provider.dart';
+import '../Arbitro/partido_detail_screen.dart';
 
 class CalendarScreen extends StatefulWidget {
   @override
@@ -52,7 +53,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     formatButtonVisible: false,
                     titleCentered: true,
                   ),
-                  // Agregar marcadores a los días con partidos
                   eventLoader: (day) {
                     return calendarProvider.hasPartidos(day) ? [1] : [];
                   },
@@ -85,6 +85,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     Text("Hora: ${partido.hora.format(context)}"),
                                   ],
                                 ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PartidoDetailScreen(partido: partido),
+                                    ),
+                                  );
+                                },
                               ),
                             );
                           },
