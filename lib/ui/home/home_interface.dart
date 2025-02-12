@@ -1,5 +1,7 @@
+import 'package:first/ui/Arbitro/arbitraje_screen.dart';
 import 'package:first/ui/Calendar/calendar_screen.dart';
 import 'package:first/ui/Competition/competition_example_screen.dart';
+import 'package:first/ui/Arbitro/arbitro_screen.dart';
 import 'package:first/ui/Notifications/notifications_manager.dart';
 import 'package:first/ui/Profile/profile_screen.dart';
 import 'package:first/ui/Searcher/searcher.dart';
@@ -111,61 +113,60 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             ExpansionTile(
-              title: Text('Item 1'),
+              title: Text('Competencias'),
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: ListTile(
                     title: Text(
-                      'Subitem 1-1',
+                      'Subitem',
                       style: TextStyle(color: Colors.grey[800]),
                     ),
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => CompetitionExampleScreen()),
+                        context,
+                        MaterialPageRoute(builder: (context) => CompetitionExampleScreen()),
                       );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: ListTile(
-                    title: Text(
-                      'Subitem 1-2',
-                      style: TextStyle(color: Colors.grey[800]),
-                    ),
-                    onTap: () {
-                      // Handle subitem tap
                     },
                   ),
                 ),
               ],
             ),
             ExpansionTile(
-              title: Text('Item 2'),
+              title: Text('Arbitro'),
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: ListTile(
                     title: Text(
-                      'Subitem 2-1',
+                      'Subitem',
                       style: TextStyle(color: Colors.grey[800]),
                     ),
                     onTap: () {
-                      // Handle subitem tap
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ArbitroScreen()),
+                      );
                     },
                   ),
                 ),
+              ],
+            ),
+            ExpansionTile(
+              title: Text('Calendario'),
+              children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: ListTile(
                     title: Text(
-                      'Subitem 2-2',
+                      'Subitem',
                       style: TextStyle(color: Colors.grey[800]),
                     ),
                     onTap: () {
-                      // Handle subitem tap
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CalendarScreen()),
+                      );
                     },
                   ),
                 ),

@@ -25,7 +25,7 @@ import 'ui/home/home_interface.dart';
 // MAIN TEST API
 void main() {
   runApp(MaterialApp(
-    home: TeamsPage(),
+    home: HomeScreen(),
   ));
 }
 
