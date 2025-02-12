@@ -103,6 +103,38 @@ class _TeamsPageState extends State<TeamsPage> {
         },
       );
 
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        _loadTeams();
+      } else {
+        setState(() {
+          _error = 'Error: ${response.statusCode}';
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _error = 'Error: $e';
+        _isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _editTeam(int id, String name) async {
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
+
+    try {
+      final response = await http.put(
+        Uri.parse('$baseUrl/$id'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode({'name': name}),
+      );
+
       if (response.statusCode == 200) {
         _loadTeams();
       } else {
@@ -133,11 +165,20 @@ class _TeamsPageState extends State<TeamsPage> {
           final team = _teams[index];
           return ListTile(
             title: Text(team.name ?? 'No name'),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () async {
-                await _deleteTeam(team.id!);
-              },
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () => _showEditTeamDialog(context, team),
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () async {
+                    await _deleteTeam(team.id!);
+                  },
+                ),
+              ],
             ),
           );
         },
@@ -171,6 +212,33 @@ class _TeamsPageState extends State<TeamsPage> {
               Navigator.pop(context);
             },
             child: Text('Add'),
+          ),
+        ],
+      ),
+    );
+  }
+  Future<void> _showEditTeamDialog(BuildContext context, Team team) async {
+    final nameController = TextEditingController(text: team.name);
+
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Edit Team'),
+        content: TextField(
+          controller: nameController,
+          decoration: InputDecoration(labelText: 'Team Name'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              await _editTeam(team.id!, nameController.text);
+              Navigator.pop(context);
+            },
+            child: Text('Save'),
           ),
         ],
       ),
