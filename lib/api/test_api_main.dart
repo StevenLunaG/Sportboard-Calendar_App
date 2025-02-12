@@ -1,6 +1,6 @@
-// main.dart
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'API Test',
+      title: 'Teams API Test',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'API Test Page'),
+      home: const MyHomePage(title: 'Teams API Test Page'),
     );
   }
 }
@@ -34,17 +34,23 @@ class _MyHomePageState extends State<MyHomePage> {
   String _response = 'No hay respuesta aún';
   bool _isLoading = false;
 
-  // Como estás usando el emulador en Edge, usa localhost
-  final String baseUrl = 'http://localhost:9000/api/calendar';
+  // Usar el mismo puerto que en tu backend
+  final String baseUrl = 'http://localhost:9000/api/teams';
 
-  Future<void> _fetchHola() async {
+  Future<void> _fetchEquipos() async {
     setState(() {
       _isLoading = true;
       _response = 'Cargando...';
     });
 
     try {
-      final response = await http.get(Uri.parse('$baseUrl/hola'));
+      final response = await http.get(
+        Uri.parse('$baseUrl/equipos'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
 
       setState(() {
         _response = response.statusCode == 200
@@ -62,18 +68,28 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Future<void> _fetchAbel() async {
+  Future<void> _createTeam() async {
     setState(() {
       _isLoading = true;
-      _response = 'Cargando...';
+      _response = 'Creando equipo...';
     });
 
     try {
-      final response = await http.get(Uri.parse('$baseUrl/abel'));
+      final response = await http.post(
+        Uri.parse(baseUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode({
+          'name': 'Nuevo Equipo',
+          // Agrega otros campos según tu modelo Team
+        }),
+      );
 
       setState(() {
         _response = response.statusCode == 200
-            ? response.body
+            ? 'Equipo creado: ${response.body}'
             : 'Error: ${response.statusCode}';
       });
     } catch (e) {
@@ -100,19 +116,22 @@ class _MyHomePageState extends State<MyHomePage> {
             if (_isLoading)
               const CircularProgressIndicator()
             else
-              Text(
-                _response,
-                style: Theme.of(context).textTheme.headlineMedium,
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  _response,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _isLoading ? null : _fetchHola,
-              child: const Text('Probar /hola'),
+              onPressed: _isLoading ? null : _fetchEquipos,
+              child: const Text('Obtener Equipos'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: _isLoading ? null : _fetchAbel,
-              child: const Text('Probar /abel'),
+              onPressed: _isLoading ? null : _createTeam,
+              child: const Text('Crear Equipo'),
             ),
           ],
         ),

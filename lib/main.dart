@@ -3,9 +3,10 @@ import 'package:first/ui/test_api.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/data_provider.dart';
+import 'ui/apis_test/teams_page.dart';
 import 'ui/home/home_interface.dart';
 
-void main() {
+/*void main() {
   runApp(
     MultiProvider(
       providers: [
@@ -19,14 +20,14 @@ void main() {
       child: MyApp(),
     ),
   );
-}
+}*/
 
 // MAIN TEST API
-/*void main() {
+void main() {
   runApp(MaterialApp(
-    home: TestPage(),
+    home: TeamsPage(),
   ));
-}*/
+}
 
 class MyApp extends StatelessWidget {
   @override

@@ -1,12 +1,8 @@
 class Team {
   final int? id;
-  final String name;
-  // Agrega otros campos según tu modelo
+  final String? name;
 
-  Team({
-    this.id,
-    required this.name,
-  });
+  Team({this.id, this.name});
 
   factory Team.fromJson(Map<String, dynamic> json) {
     return Team(
