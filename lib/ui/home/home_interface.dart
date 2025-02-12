@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
             DrawerHeader(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/DEZZ.png'),
+                  image: AssetImage('assets/images/SPTB.png'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: 8),
                   Text(
                     'Nickname',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     'username@example.com',
