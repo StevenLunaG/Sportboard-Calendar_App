@@ -15,7 +15,7 @@ class MainHomeScreen extends StatelessWidget {
           height: 200,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/2.png'),
+              image: AssetImage('assets/images/SPTB.png'),
               fit: BoxFit.cover,
             ),
           ),

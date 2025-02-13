@@ -154,7 +154,6 @@ class _TeamsPageState extends State<TeamsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Equipos')),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
           : _error != null
@@ -196,22 +195,22 @@ class _TeamsPageState extends State<TeamsPage> {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Add Team'),
+        title: Text('Agregar Equipo'),
         content: TextField(
           controller: nameController,
-          decoration: InputDecoration(labelText: 'Team Name'),
+          decoration: InputDecoration(labelText: 'Nombre del Equipo'),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
+            child: Text('Cancelar'),
           ),
           TextButton(
             onPressed: () async {
               await _createTeam(nameController.text);
               Navigator.pop(context);
             },
-            child: Text('Add'),
+            child: Text('Agregar'),
           ),
         ],
       ),

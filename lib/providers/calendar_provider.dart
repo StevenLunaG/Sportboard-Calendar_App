@@ -1,49 +1,49 @@
 import 'package:flutter/material.dart';
-import '../models/partido.dart';
-import 'data_provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../models/match.dart';
 
 class CalendarProvider with ChangeNotifier {
-  final DataProvider _dataProvider;
-  Map<DateTime, List<Partido>> _partidosPorFecha = {};
+  final String baseUrl = 'http://localhost:9000/api/matches';
+  Map<DateTime, List<Match>> _matches = {};
 
-  CalendarProvider(this._dataProvider) {
-    _initializePartidos();
-    // Escuchar cambios en el DataProvider
-    _dataProvider.addListener(_initializePartidos);
-  }
+  Map<DateTime, List<Match>> get matches => _matches;
 
-  Map<DateTime, List<Partido>> get partidosPorFecha => _partidosPorFecha;
-
-  void _initializePartidos() {
-    _partidosPorFecha = {};
-    for (var partido in _dataProvider.partidos) {
-      final fecha = DateTime(
-        partido.fecha.year,
-        partido.fecha.month,
-        partido.fecha.day,
+  Future<void> loadMatches() async {
+    try {
+      final response = await http.get(
+        Uri.parse(baseUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
       );
 
-      if (!_partidosPorFecha.containsKey(fecha)) {
-        _partidosPorFecha[fecha] = [];
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        _matches = {};
+        for (var matchJson in data) {
+          Match match = Match.fromJson(matchJson);
+          DateTime matchDate = DateTime(match.date!.year, match.date!.month, match.date!.day);
+          if (_matches[matchDate] == null) {
+            _matches[matchDate] = [];
+          }
+          _matches[matchDate]!.add(match);
+        }
+        notifyListeners();
+      } else {
+        throw Exception('Failed to load matches');
       }
-      _partidosPorFecha[fecha]!.add(partido);
+    } catch (e) {
+      print('Error loading matches: $e');
     }
-    notifyListeners();
   }
 
-  List<Partido> getPartidosByDate(DateTime date) {
-    final fechaNormalizada = DateTime(date.year, date.month, date.day);
-    return _partidosPorFecha[fechaNormalizada] ?? [];
+  List<Match> getMatchesByDate(DateTime date) {
+    return _matches[DateTime(date.year, date.month, date.day)] ?? [];
   }
 
-  bool hasPartidos(DateTime date) {
-    final fechaNormalizada = DateTime(date.year, date.month, date.day);
-    return _partidosPorFecha.containsKey(fechaNormalizada);
-  }
-
-  @override
-  void dispose() {
-    _dataProvider.removeListener(_initializePartidos);
-    super.dispose();
+  bool hasMatches(DateTime date) {
+    return _matches.containsKey(DateTime(date.year, date.month, date.day));
   }
 }

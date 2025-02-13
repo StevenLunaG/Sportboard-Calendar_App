@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 
 import '../Arbitro/arbitro_screen.dart';
 import '../Management/manage_screen.dart';
+import '../admin/admin_interface.dart';
+import '../admin/teams_page.dart';
 
 class HomeInterfaceScreen extends StatelessWidget {
   @override
@@ -30,6 +32,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  bool isAdmin = true;
 
   // Lista de pantallas como clases separadas
   static final List<Widget> _pages = <Widget>[
@@ -38,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ArbitroScreen(),
     //ManagementScreen(),
     CalendarScreen(),
+    //TeamsPage(),
     SettingsMenu(),
   ];
 
@@ -57,6 +61,17 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: Colors.black),
         ),
         actions: <Widget>[
+          if (isAdmin)
+            IconButton(
+              icon: const Icon(Icons.privacy_tip),
+              tooltip: 'Admin',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AdminInterface()),
+                );
+              },
+            ),
           IconButton(
             icon: const Icon(Icons.notifications),
             tooltip: 'Notificaciones',
@@ -87,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
             DrawerHeader(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/SPTB.png'),
+                  image: AssetImage('assets/images/2.png'),
                   fit: BoxFit.cover,
                 ),
               ),
