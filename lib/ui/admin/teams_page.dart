@@ -154,7 +154,7 @@ class _TeamsPageState extends State<TeamsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Teams')),
+      appBar: AppBar(title: Text('Equipos')),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
           : _error != null
